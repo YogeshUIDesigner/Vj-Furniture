@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const offers = [
     {
-        image: '/images/featured Offers/Living Room.jpg',
+        image: '/images/featured-offers/living-room.jpg',
         label: 'Living Room',
         title: 'Where Quality Meets Style',
         link: 'Chair & Sofas',
