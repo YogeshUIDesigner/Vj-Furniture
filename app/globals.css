@@ -128,7 +128,8 @@ h6 {
 }
 
 .section {
-  padding: 80px 0;
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
 .section-title {
@@ -691,6 +692,15 @@ h6 {
   position: relative;
   cursor: pointer;
   transition: transform var(--transition);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.product-card>a {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .product-card:hover {
@@ -1137,7 +1147,8 @@ h6 {
 
 /* --- Newsletter --- */
 .newsletter {
-  padding: 50px 0;
+  padding-top: 60px;
+  padding-bottom: 60px;
   background-color: var(--color-bg-light);
 }
 
@@ -1146,6 +1157,8 @@ h6 {
   align-items: center;
   justify-content: space-between;
   gap: 40px;
+  padding-top: 60px;
+  padding-bottom: 60px;
 }
 
 .newsletter-text {
@@ -1290,6 +1303,7 @@ h6 {
   display: flex;
   gap: 12px;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .footer-socials span {
@@ -1297,6 +1311,7 @@ h6 {
   font-weight: 600;
   color: var(--color-white);
   margin-right: 8px;
+  width: 100%;
 }
 
 .social-link {
@@ -1325,6 +1340,8 @@ h6 {
   border-radius: var(--radius-pill);
   color: var(--color-white);
   font-size: 0.85rem;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .footer-delivery-icon {
@@ -1465,11 +1482,12 @@ h6 {
 
 @media (max-width: 992px) {
   :root {
-    --container-padding: 24px;
+    --container-padding: 30px;
   }
 
   .header-inner {
-    padding: 12px 0;
+    padding-top: 12px;
+    padding-bottom: 12px;
   }
 
   .mobile-menu-toggle {
@@ -1546,7 +1564,8 @@ h6 {
 
 @media (max-width: 768px) {
   .section {
-    padding: 60px 0;
+    padding-top: 60px;
+    padding-bottom: 60px;
   }
 
   .hero {
@@ -1608,6 +1627,11 @@ h6 {
     text-align: center;
   }
 
+  .values-grid {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+
   .footer-brand .logo {
     justify-content: center;
   }
@@ -1645,6 +1669,10 @@ h6 {
 }
 
 @media (max-width: 480px) {
+  :root {
+    --container-padding: 24px;
+  }
+
   .hero {
     height: 380px;
   }
@@ -1659,7 +1687,26 @@ h6 {
   }
 
   .product-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .product-name {
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+  }
+
+  .product-brand {
+    font-size: 0.75rem;
+  }
+
+  .product-price .current {
+    font-size: 0.95rem;
+  }
+
+  .product-card .btn {
+    padding: 8px !important;
+    font-size: 0.8rem !important;
   }
 
   .instagram-grid {
@@ -1686,18 +1733,20 @@ h6 {
   }
 
   .footer-grid {
-    grid-template-columns: 1fr;
-    text-align: center;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px 20px;
+    text-align: left;
   }
 
   .footer-brand {
-    grid-column: span 1;
+    grid-column: span 2;
+    text-align: center;
   }
 }
 
 @media (max-width: 375px) {
   :root {
-    --container-padding: 16px;
+    --container-padding: 20px;
   }
 
   .hero-heading {
@@ -1711,4 +1760,35 @@ h6 {
   .section-title {
     font-size: 1.5rem;
   }
+
+  .product-view-grid {
+    grid-template-columns: 1fr !important;
+    gap: 30px !important;
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 40px !important;
+  }
+
+  .contact-form-container {
+    padding: 30px 20px !important;
+  }
+}
+
+/* Contact Grid Base */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+/* Product Card Button Base */
+.product-card .btn {
+  width: 100%;
+  margin-top: auto;
+  border-radius: 12px;
+  padding: 10px;
+  font-size: 0.85rem;
 }

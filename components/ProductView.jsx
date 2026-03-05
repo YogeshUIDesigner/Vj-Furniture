@@ -18,7 +18,7 @@ export default function ProductView({ product, relatedProducts }) {
     return (
         <main>
             <div className="container section">
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'start' }}>
+                <div className="product-view-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '60px', alignItems: 'start' }}>
                     {/* Image Gallery Placeholder */}
                     <div style={{ background: 'var(--color-bg-light)', borderRadius: '24px', overflow: 'hidden', aspectRatio: '1', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <img src={product.image} alt={product.name} style={{ width: '80%', height: '80%', objectFit: 'contain' }} />

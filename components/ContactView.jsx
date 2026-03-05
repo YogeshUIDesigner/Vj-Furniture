@@ -43,7 +43,7 @@ export default function ContactView() {
 
     return (
         <div className="container section">
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '80px', alignItems: 'start' }}>
+            <div className="contact-grid">
                 {/* Contact Info */}
                 <div>
                     <h1 className="section-title">Get in Touch</h1>
@@ -85,7 +85,7 @@ export default function ContactView() {
                 </div>
 
                 {/* Contact Form */}
-                <div style={{ background: 'var(--color-bg-warm)', padding: '40px', borderRadius: '24px' }}>
+                <div className="contact-form-container" style={{ background: 'var(--color-bg-warm)', padding: '40px', borderRadius: '24px' }}>
                     <h3 style={{ marginBottom: '30px' }}>Send us a Message</h3>
                     <form onSubmit={handleSubmit} style={{ display: 'grid', gap: '20px' }}>
                         <div style={{ display: 'grid', gap: '8px' }}>

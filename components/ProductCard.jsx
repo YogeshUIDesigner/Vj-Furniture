@@ -29,7 +29,6 @@ export default function ProductCard({ product, ...props }) {
             <button
                 className="btn btn-primary"
                 onClick={(e) => { e.preventDefault(); e.stopPropagation(); addToCart(p); }}
-                style={{ width: '100%', marginTop: '15px', borderRadius: '12px', padding: '10px', fontSize: '0.85rem' }}
             >
                 Add to Cart
             </button>

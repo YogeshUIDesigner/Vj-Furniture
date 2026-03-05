@@ -25,7 +25,7 @@ export default function About() {
 
             {/* Our Values */}
             <div className="container section">
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '40px' }}>
+                <div className="values-grid" style={{ display: 'grid', gap: '40px' }}>
                     <div style={{ textAlign: 'center' }}>
                         <div style={{ fontSize: '3rem', marginBottom: '20px' }}>🌲</div>
                         <h3>Sustainable Sourcing</h3>
