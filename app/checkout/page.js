@@ -108,33 +108,33 @@ Payment Method: ${formData.paymentMethod.toUpperCase()}
             <div className="container">
                 <h1 className="section-title">Checkout</h1>
 
-                <form onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 400px', gap: '40px', alignItems: 'start' }}>
+                <form onSubmit={handleSubmit} className="checkout-form">
 
                     {/* Shipping Details Form */}
-                    <div style={{ background: 'white', padding: '40px', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
+                    <div className="checkout-details">
                         <h3 style={{ marginBottom: '30px' }}>Shipping Information</h3>
-                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-                            <div style={{ gridColumn: 'span 2' }}>
+                        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px' }}>
+                            <div className="field-full">
                                 <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem', fontWeight: '600' }}>Full Name</label>
                                 <input type="text" name="fullName" required value={formData.fullName} onChange={handleChange} placeholder="Enter your full name" style={{ width: '100%', padding: '15px', borderRadius: '12px', border: '1px solid var(--color-border)' }} />
                             </div>
-                            <div>
+                            <div className="field-half">
                                 <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem', fontWeight: '600' }}>Email Address</label>
                                 <input type="email" name="email" required value={formData.email} onChange={handleChange} placeholder="email@example.com" style={{ width: '100%', padding: '15px', borderRadius: '12px', border: '1px solid var(--color-border)' }} />
                             </div>
-                            <div>
+                            <div className="field-half">
                                 <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem', fontWeight: '600' }}>Phone Number</label>
                                 <input type="tel" name="phone" required value={formData.phone} onChange={handleChange} placeholder="+91 XXXXX XXXXX" style={{ width: '100%', padding: '15px', borderRadius: '12px', border: '1px solid var(--color-border)' }} />
                             </div>
-                            <div style={{ gridColumn: 'span 2' }}>
+                            <div className="field-full">
                                 <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem', fontWeight: '600' }}>Full Address</label>
                                 <textarea name="address" required value={formData.address} onChange={handleChange} rows="3" placeholder="House No, Street, Locality" style={{ width: '100%', padding: '15px', borderRadius: '12px', border: '1px solid var(--color-border)', fontFamily: 'inherit' }}></textarea>
                             </div>
-                            <div>
+                            <div className="field-half">
                                 <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem', fontWeight: '600' }}>City</label>
                                 <input type="text" name="city" required value={formData.city} onChange={handleChange} placeholder="e.g. Agra" style={{ width: '100%', padding: '15px', borderRadius: '12px', border: '1px solid var(--color-border)' }} />
                             </div>
-                            <div>
+                            <div className="field-half">
                                 <label style={{ display: 'block', marginBottom: '8px', fontSize: '0.9rem', fontWeight: '600' }}>Pincode</label>
                                 <input type="text" name="pincode" required value={formData.pincode} onChange={handleChange} placeholder="XXXXXX" style={{ width: '100%', padding: '15px', borderRadius: '12px', border: '1px solid var(--color-border)' }} />
                             </div>
@@ -160,8 +160,8 @@ Payment Method: ${formData.paymentMethod.toUpperCase()}
                     </div>
 
                     {/* Order Summary */}
-                    <div style={{ position: 'sticky', top: '120px' }}>
-                        <div style={{ background: 'white', padding: '30px', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
+                    <div className="checkout-summary-container">
+                        <div className="checkout-summary-card">
                             <h3 style={{ marginBottom: '20px' }}>Order Summary</h3>
                             <div style={{ display: 'grid', gap: '15px', marginBottom: '25px' }}>
                                 {cart.map(item => (
@@ -194,6 +194,49 @@ Payment Method: ${formData.paymentMethod.toUpperCase()}
                         </div>
                     </div>
                 </form>
+                <style jsx>{`
+                    .checkout-form {
+                        display: grid;
+                        grid-template-columns: 1fr 400px;
+                        gap: 40px;
+                        align-items: start;
+                    }
+                    .checkout-details {
+                        background: white;
+                        padding: 40px;
+                        border-radius: 24px;
+                        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+                    }
+                    .checkout-summary-container {
+                        position: sticky;
+                        top: 120px;
+                    }
+                    .checkout-summary-card {
+                        background: white;
+                        padding: 30px;
+                        border-radius: 24px;
+                        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+                    }
+                    .field-full {
+                        grid-column: span 2;
+                    }
+                    @media (max-width: 992px) {
+                        .checkout-form {
+                            grid-template-columns: 1fr;
+                        }
+                        .checkout-summary-container {
+                            position: static;
+                        }
+                    }
+                    @media (max-width: 768px) {
+                        .checkout-details {
+                            padding: 25px;
+                        }
+                        .field-full, .field-half {
+                            grid-column: span 1;
+                        }
+                    }
+                `}</style>
             </div>
         </main>
     );

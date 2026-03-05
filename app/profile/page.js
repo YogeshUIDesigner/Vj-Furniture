@@ -35,17 +35,17 @@ function ProfileContent() {
     ];
 
     return (
-        <main style={{ background: 'var(--color-bg-light)', minHeight: '100vh', padding: '140px 0 80px' }}>
+        <main className="profile-page">
             <div className="container">
-                <div style={{ display: 'grid', gridTemplateColumns: '300px 1fr', gap: '40px', alignItems: 'start' }}>
+                <div className="profile-layout">
 
                     {/* Sidebar / Sidebar Profile Info */}
-                    <div style={{ display: 'grid', gap: '20px' }}>
-                        <div style={{ background: 'white', padding: '30px', borderRadius: '24px', textAlign: 'center', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
-                            <img src={user.avatar} alt={user.name} style={{ width: '100px', height: '100px', borderRadius: '50%', marginBottom: '20px', objectFit: 'cover' }} />
+                    <div className="profile-sidebar">
+                        <div className="profile-card">
+                            <img src={user.avatar} alt={user.name} className="profile-avatar" />
                             <h2 style={{ fontSize: '1.4rem', marginBottom: '5px' }}>{user.name}</h2>
                             <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', marginBottom: '20px' }}>{user.email}</p>
-                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', borderTop: '1px solid var(--color-border)', paddingTop: '20px' }}>
+                            <div className="profile-quick-stats">
                                 <div>
                                     <h4 style={{ fontSize: '1.2rem', color: 'var(--color-primary)' }}>{user.totalOrders}</h4>
                                     <span style={{ fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '1px', opacity: 0.6 }}>Orders</span>
@@ -57,26 +57,12 @@ function ProfileContent() {
                             </div>
                         </div>
 
-                        <div style={{ background: 'white', overflow: 'hidden', borderRadius: '24px', boxShadow: '0 10px 30px rgba(0,0,0,0.05)' }}>
+                        <div className="profile-tabs">
                             {tabs.map(tab => (
                                 <button
                                     key={tab.id}
                                     onClick={() => setActiveTab(tab.id)}
-                                    style={{
-                                        width: '100%',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        gap: '15px',
-                                        padding: '15px 25px',
-                                        border: 'none',
-                                        background: activeTab === tab.id ? 'var(--color-bg-warm)' : 'transparent',
-                                        color: activeTab === tab.id ? 'var(--color-primary)' : 'var(--color-dark)',
-                                        fontWeight: activeTab === tab.id ? '700' : '500',
-                                        cursor: 'pointer',
-                                        textAlign: 'left',
-                                        transition: 'all 0.2s ease',
-                                        borderLeft: activeTab === tab.id ? '4px solid var(--color-primary)' : '4px solid transparent'
-                                    }}
+                                    className={`profile-tab-btn ${activeTab === tab.id ? 'active' : ''}`}
                                 >
                                     <span style={{ fontSize: '1.2rem' }}>{tab.icon}</span>
                                     {tab.label}
@@ -86,27 +72,27 @@ function ProfileContent() {
                     </div>
 
                     {/* Main Content Area */}
-                    <div style={{ background: 'white', padding: '40px', borderRadius: '24px', boxShadow: '0 20px 40px rgba(0,0,0,0.05)', minHeight: '600px' }}>
+                    <div className="profile-content">
 
                         {activeTab === 'profile' && (
                             <div>
                                 <h1 style={{ marginBottom: '30px' }}>Account Information</h1>
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '30px' }}>
+                                <div className="profile-form-grid">
                                     <div className="form-group">
-                                        <label style={{ display: 'block', marginBottom: '10px', fontSize: '0.9rem', opacity: 0.7 }}>First Name</label>
-                                        <input type="text" defaultValue="Yogesh" style={{ width: '100%', padding: '15px', borderRadius: '12px', border: '1px solid var(--color-border)' }} />
+                                        <label>First Name</label>
+                                        <input type="text" defaultValue="Yogesh" />
                                     </div>
                                     <div className="form-group">
-                                        <label style={{ display: 'block', marginBottom: '10px', fontSize: '0.9rem', opacity: 0.7 }}>Last Name</label>
-                                        <input type="text" defaultValue="Singh" style={{ width: '100%', padding: '15px', borderRadius: '12px', border: '1px solid var(--color-border)' }} />
+                                        <label>Last Name</label>
+                                        <input type="text" defaultValue="Singh" />
                                     </div>
-                                    <div className="form-group" style={{ gridColumn: 'span 2' }}>
-                                        <label style={{ display: 'block', marginBottom: '10px', fontSize: '0.9rem', opacity: 0.7 }}>Email Address</label>
-                                        <input type="email" defaultValue={user.email} style={{ width: '100%', padding: '15px', borderRadius: '12px', border: '1px solid var(--color-border)' }} />
+                                    <div className="form-group full-width">
+                                        <label>Email Address</label>
+                                        <input type="email" defaultValue={user.email} />
                                     </div>
-                                    <div className="form-group" style={{ gridColumn: 'span 2' }}>
-                                        <label style={{ display: 'block', marginBottom: '10px', fontSize: '0.9rem', opacity: 0.7 }}>Phone Number</label>
-                                        <input type="tel" defaultValue={user.phone} style={{ width: '100%', padding: '15px', borderRadius: '12px', border: '1px solid var(--color-border)' }} />
+                                    <div className="form-group full-width">
+                                        <label>Phone Number</label>
+                                        <input type="tel" defaultValue={user.phone} />
                                     </div>
                                 </div>
                                 <button className="btn btn-primary" style={{ marginTop: '30px', padding: '15px 40px' }}>Update Profile</button>
@@ -118,23 +104,14 @@ function ProfileContent() {
                                 <h1 style={{ marginBottom: '30px' }}>Recent Orders</h1>
                                 <div style={{ display: 'grid', gap: '20px' }}>
                                     {orders.length > 0 ? orders.map(order => (
-                                        <div key={order.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '20px', border: '1px solid var(--color-border)', borderRadius: '16px' }}>
-                                            <div>
+                                        <div key={order.id} className="order-item-card">
+                                            <div className="order-info">
                                                 <h4 style={{ marginBottom: '5px' }}>{order.id}</h4>
                                                 <p style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>{order.items} • {order.date}</p>
                                             </div>
-                                            <div style={{ textAlign: 'right' }}>
+                                            <div className="order-status-price">
                                                 <p style={{ fontWeight: '700', marginBottom: '5px' }}>{order.total}</p>
-                                                <span style={{
-                                                    background: order.status === 'Delivered' ? '#e6f4ea' : (order.status === 'Shipped' ? '#e8f0fe' : '#fff7e6'),
-                                                    color: order.status === 'Delivered' ? '#1e7e34' : (order.status === 'Shipped' ? '#1a73e8' : '#b27b16'),
-                                                    padding: '4px 12px',
-                                                    borderRadius: '20px',
-                                                    fontSize: '0.8rem',
-                                                    fontWeight: '700',
-                                                    textTransform: 'uppercase',
-                                                    letterSpacing: '0.5px'
-                                                }}>{order.status}</span>
+                                                <span className={`status-pill ${order.status.toLowerCase()}`}>{order.status}</span>
                                             </div>
                                         </div>
                                     )) : (
@@ -150,9 +127,9 @@ function ProfileContent() {
                         {activeTab === 'addresses' && (
                             <div>
                                 <h1 style={{ marginBottom: '30px' }}>Saved Addresses</h1>
-                                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
-                                    <div style={{ padding: '25px', border: '2px solid var(--color-primary)', borderRadius: '16px', position: 'relative' }}>
-                                        <span style={{ background: 'var(--color-primary)', color: 'white', fontSize: '0.7rem', padding: '2px 8px', borderRadius: '4px', position: 'absolute', top: '20px', right: '20px', fontWeight: '700' }}>DEFAULT</span>
+                                <div className="address-grid">
+                                    <div className="address-card default">
+                                        <span className="address-badge">DEFAULT</span>
                                         <h4 style={{ marginBottom: '10px' }}>Home</h4>
                                         <p style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', lineHeight: '1.6' }}>
                                             Magtai Moad Bichpuri Road,<br />
@@ -160,7 +137,7 @@ function ProfileContent() {
                                             India
                                         </p>
                                     </div>
-                                    <button style={{ border: '2px dashed var(--color-border)', background: 'transparent', borderRadius: '16px', padding: '25px', color: 'var(--color-text-muted)', cursor: 'pointer' }}>
+                                    <button className="add-address-btn">
                                         + Add New Address
                                     </button>
                                 </div>
@@ -171,21 +148,21 @@ function ProfileContent() {
                             <div>
                                 <h1 style={{ marginBottom: '30px' }}>Account Settings</h1>
                                 <div style={{ display: 'grid', gap: '30px' }}>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '20px', borderBottom: '1px solid var(--color-border)' }}>
+                                    <div className="settings-item">
                                         <div>
                                             <h4 style={{ marginBottom: '5px' }}>Change Password</h4>
                                             <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Update your account security periodically.</p>
                                         </div>
-                                        <button className="btn" style={{ border: '1px solid var(--color-border)', padding: '8px 20px' }}>Change</button>
+                                        <button className="btn outline-btn">Change</button>
                                     </div>
-                                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '20px', borderBottom: '1px solid var(--color-border)' }}>
+                                    <div className="settings-item">
                                         <div>
                                             <h4 style={{ marginBottom: '5px' }}>Email Notifications</h4>
                                             <p style={{ fontSize: '0.85rem', color: 'var(--color-text-muted)' }}>Receive updates on orders and offers.</p>
                                         </div>
                                         <input type="checkbox" defaultChecked style={{ width: '20px', height: '20px' }} />
                                     </div>
-                                    <button style={{ color: '#dc3545', background: 'transparent', border: 'none', fontWeight: '700', cursor: 'pointer', textAlign: 'left', marginTop: '20px' }}>Log Out from Account</button>
+                                    <button className="logout-btn">Log Out from Account</button>
                                 </div>
                             </div>
                         )}
@@ -193,6 +170,208 @@ function ProfileContent() {
                     </div>
                 </div>
             </div>
+            <style jsx>{`
+                .profile-page {
+                    background: var(--color-bg-light);
+                    min-height: 100vh;
+                    padding: 140px 0 80px;
+                }
+                .profile-layout {
+                    display: grid;
+                    grid-template-columns: 300px 1fr;
+                    gap: 40px;
+                    align-items: start;
+                }
+                .profile-sidebar {
+                    display: grid;
+                    gap: 20px;
+                }
+                .profile-card {
+                    background: white;
+                    padding: 30px;
+                    border-radius: 24px;
+                    text-align: center;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+                }
+                .profile-avatar {
+                    width: 100px;
+                    height: 100px;
+                    borderRadius: 50%;
+                    marginBottom: 20px;
+                    objectFit: cover;
+                }
+                .profile-quick-stats {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 15px;
+                    border-top: 1px solid var(--color-border);
+                    padding-top: 20px;
+                }
+                .profile-tabs {
+                    background: white;
+                    overflow: hidden;
+                    border-radius: 24px;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+                }
+                .profile-tab-btn {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    gap: 15px;
+                    padding: 15px 25px;
+                    border: none;
+                    background: transparent;
+                    color: var(--color-dark);
+                    fontWeight: 500;
+                    cursor: pointer;
+                    textAlign: left;
+                    transition: all 0.2s ease;
+                    borderLeft: 4px solid transparent;
+                }
+                .profile-tab-btn.active {
+                    background: var(--color-bg-warm);
+                    color: var(--color-primary);
+                    fontWeight: 700;
+                    borderLeft: 4px solid var(--color-primary);
+                }
+                .profile-content {
+                    background: white;
+                    padding: 40px;
+                    border-radius: 24px;
+                    box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+                    min-height: 600px;
+                }
+                .profile-form-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 30px;
+                }
+                .form-group label {
+                    display: block;
+                    marginBottom: 10px;
+                    fontSize: 0.9rem;
+                    opacity: 0.7;
+                }
+                .form-group input {
+                    width: 100%;
+                    padding: 15px;
+                    borderRadius: 12px;
+                    border: 1px solid var(--color-border);
+                }
+                .full-width {
+                    grid-column: span 2;
+                }
+                .order-item-card {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 20px;
+                    border: 1px solid var(--color-border);
+                    border-radius: 16px;
+                }
+                .status-pill {
+                    padding: 4px 12px;
+                    border-radius: 20px;
+                    fontSize: 0.8rem;
+                    fontWeight: 700;
+                    textTransform: uppercase;
+                    letterSpacing: 0.5px;
+                }
+                .status-pill.delivered { background: #e6f4ea; color: #1e7e34; }
+                .status-pill.shipped { background: #e8f0fe; color: #1a73e8; }
+                .status-pill.processing { background: #fff7e6; color: #b27b16; }
+
+                .address-grid {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 20px;
+                }
+                .address-card {
+                    padding: 25px;
+                    border: 1px solid var(--color-border);
+                    border-radius: 16px;
+                    position: relative;
+                }
+                .address-card.default {
+                    border: 2px solid var(--color-primary);
+                }
+                .address-badge {
+                    background: var(--color-primary);
+                    color: white;
+                    fontSize: 0.7rem;
+                    padding: 2px 8px;
+                    borderRadius: 4px;
+                    position: absolute;
+                    top: 20px;
+                    right: 20px;
+                    fontWeight: 700;
+                }
+                .add-address-btn {
+                    border: 2px dashed var(--color-border);
+                    background: transparent;
+                    borderRadius: 16px;
+                    padding: 25px;
+                    color: var(--color-text-muted);
+                    cursor: pointer;
+                }
+                .settings-item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    paddingBottom: 20px;
+                    borderBottom: 1px solid var(--color-border);
+                }
+                .outline-btn {
+                    border: 1px solid var(--color-border);
+                    padding: 8px 20px;
+                }
+                .logout-btn {
+                    color: #dc3545;
+                    background: transparent;
+                    border: none;
+                    fontWeight: 700;
+                    cursor: pointer;
+                    textAlign: left;
+                    marginTop: 20px;
+                }
+
+                @media (max-width: 992px) {
+                    .profile-page {
+                        padding-top: 100px;
+                    }
+                    .profile-layout {
+                        grid-template-columns: 1fr;
+                    }
+                    .profile-sidebar {
+                        order: 2;
+                    }
+                    .profile-content {
+                        order: 1;
+                        padding: 30px;
+                        min-height: auto;
+                    }
+                }
+                @media (max-width: 768px) {
+                    .profile-form-grid, .address-grid {
+                        grid-template-columns: 1fr;
+                    }
+                    .full-width {
+                        grid-column: span 1;
+                    }
+                    .order-item-card {
+                        flex-direction: column;
+                        align-items: flex-start;
+                        gap: 15px;
+                    }
+                    .order-status-price {
+                        text-align: left !important;
+                        width: 100%;
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                    }
+                }
+            `}</style>
         </main>
     );
 }

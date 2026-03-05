@@ -7,6 +7,7 @@ import { useCart } from '@/context/CartContext';
 export default function Header() {
     const [scrolled, setScrolled] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const { cartCount } = useCart();
     const router = useRouter();
     const pathname = usePathname();
@@ -17,10 +18,16 @@ export default function Header() {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Close mobile menu on route change
+    useEffect(() => {
+        setMobileMenuOpen(false);
+    }, [pathname]);
+
     const handleSearch = (e) => {
         if (e) e.preventDefault();
         if (searchQuery.trim()) {
             router.push(`/shop?q=${encodeURIComponent(searchQuery.trim())}`);
+            setMobileMenuOpen(false);
         }
     };
 
@@ -46,6 +53,15 @@ export default function Header() {
             {/* Main Header */}
             <header className={`header ${scrolled ? 'scrolled' : ''}`}>
                 <div className="container header-inner">
+                    {/* Hamburger Button (Mobile Only) */}
+                    <button
+                        className="mobile-menu-toggle"
+                        onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                        aria-label="Toggle Menu"
+                    >
+                        {mobileMenuOpen ? '✕' : '☰'}
+                    </button>
+
                     {/* Logo */}
                     <Link href="/" className="logo">
                         <div className="logo-icon">🏠</div>
@@ -55,7 +71,7 @@ export default function Header() {
                         </div>
                     </Link>
 
-                    {/* Navigation */}
+                    {/* Navigation (Desktop) */}
                     <nav className="nav-links">
                         <Link href="/shop" className={isActive('/shop') ? 'active' : ''}>Products</Link>
                         <Link href="/rooms" className={isActive('/rooms') ? 'active' : ''}>Rooms</Link>
@@ -64,7 +80,7 @@ export default function Header() {
                         <Link href="/offers" className={isActive('/offers') ? 'active' : ''}>Offers</Link>
                     </nav>
 
-                    {/* Search Bar */}
+                    {/* Search Bar (Desktop) */}
                     <form className="search-bar" onSubmit={handleSearch}>
                         <input
                             type="text"
@@ -84,7 +100,7 @@ export default function Header() {
                                 <strong>+91 9870765966</strong>
                             </div>
                         </div>
-                        <Link href="#" className="action-btn" title="Account">👤</Link>
+                        <Link href="/profile" className="action-btn" title="Account">👤</Link>
                         <button className="action-btn" title="Wishlist">
                             ♡
                             <span className="action-badge">0</span>
@@ -94,6 +110,36 @@ export default function Header() {
                             <span className="action-badge">{cartCount}</span>
                         </Link>
                     </div>
+                </div>
+
+                {/* Mobile Menu Overlay */}
+                <div className={`mobile-menu ${mobileMenuOpen ? 'open' : ''}`}>
+                    <div className="mobile-menu-content">
+                        <div className="mobile-search">
+                            <form onSubmit={handleSearch}>
+                                <input
+                                    type="text"
+                                    placeholder="Search products..."
+                                    value={searchQuery}
+                                    onChange={(e) => setSearchQuery(e.target.value)}
+                                />
+                                <button type="submit">🔍</button>
+                            </form>
+                        </div>
+                        <nav className="mobile-nav-links">
+                            <Link href="/shop" className={isActive('/shop') ? 'active' : ''}>Products</Link>
+                            <Link href="/rooms" className={isActive('/rooms') ? 'active' : ''}>Rooms</Link>
+                            <Link href="/inspirations" className={isActive('/inspirations') ? 'active' : ''}>Inspirations</Link>
+                            <Link href="/services" className={isActive('/services') ? 'active' : ''}>Our Services</Link>
+                            <Link href="/offers" className={isActive('/offers') ? 'active' : ''}>Offers</Link>
+                            <Link href="/about" className={isActive('/about') ? 'active' : ''}>About Us</Link>
+                            <Link href="/contact" className={isActive('/contact') ? 'active' : ''}>Contact</Link>
+                        </nav>
+                        <div className="mobile-contact-info">
+                            <p>Call Us: <strong>+91 9870765966</strong></p>
+                        </div>
+                    </div>
+                    <div className="mobile-menu-overlay" onClick={() => setMobileMenuOpen(false)}></div>
                 </div>
             </header>
         </>

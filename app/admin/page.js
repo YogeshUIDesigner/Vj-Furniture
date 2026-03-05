@@ -90,78 +90,133 @@ export default function AdminDashboard() {
                 </div>
 
                 {/* Content */}
-                <div className="admin-table-container">
+                <div className="admin-content-container">
                     {activeTab === 'orders' ? (
-                        <table className="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Order Details</th>
-                                    <th>Customer</th>
-                                    <th>Items</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        <>
+                            <div className="admin-table-view">
+                                <table className="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Order Details</th>
+                                            <th>Customer</th>
+                                            <th>Items</th>
+                                            <th>Amount</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {orders.length === 0 ? (
+                                            <tr><td colSpan="5" style={{ textAlign: 'center', padding: '40px' }}>No orders found yet.</td></tr>
+                                        ) : (
+                                            orders.map(order => (
+                                                <tr key={order.id}>
+                                                    <td>
+                                                        <div style={{ fontWeight: '700', color: 'var(--color-primary)' }}>{order.id}</div>
+                                                        <div style={{ fontSize: '0.8rem', opacity: 0.6 }}>{order.date}</div>
+                                                    </td>
+                                                    <td>
+                                                        <div style={{ fontWeight: '600' }}>{order.shippingDetails?.fullName}</div>
+                                                        <div style={{ fontSize: '0.85rem', color: 'var(--color-primary)' }}>{order.shippingDetails?.phone}</div>
+                                                        <div style={{ fontSize: '0.8rem', opacity: 0.6, maxWidth: '200px' }}>{order.shippingDetails?.address}</div>
+                                                    </td>
+                                                    <td style={{ maxWidth: '250px', fontSize: '0.85rem' }}>{order.items}</td>
+                                                    <td><strong style={{ fontSize: '1.1rem' }}>{order.total}</strong></td>
+                                                    <td>
+                                                        <span className="status-badge status-processing">
+                                                            {order.status}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="admin-card-view">
                                 {orders.length === 0 ? (
-                                    <tr><td colSpan="5" style={{ textAlign: 'center', padding: '40px' }}>No orders found yet.</td></tr>
+                                    <div style={{ textAlign: 'center', padding: '40px' }}>No orders found yet.</div>
                                 ) : (
                                     orders.map(order => (
-                                        <tr key={order.id}>
-                                            <td>
-                                                <div style={{ fontWeight: '700', color: 'var(--color-primary)' }}>{order.id}</div>
-                                                <div style={{ fontSize: '0.8rem', opacity: 0.6 }}>{order.date}</div>
-                                            </td>
-                                            <td>
-                                                <div style={{ fontWeight: '600' }}>{order.shippingDetails?.fullName}</div>
-                                                <div style={{ fontSize: '0.85rem', color: 'var(--color-primary)' }}>{order.shippingDetails?.phone}</div>
-                                                <div style={{ fontSize: '0.8rem', opacity: 0.6, maxWidth: '200px' }}>{order.shippingDetails?.address}</div>
-                                            </td>
-                                            <td style={{ maxWidth: '250px', fontSize: '0.85rem' }}>{order.items}</td>
-                                            <td><strong style={{ fontSize: '1.1rem' }}>{order.total}</strong></td>
-                                            <td>
-                                                <span className="status-badge status-processing">
-                                                    {order.status}
-                                                </span>
-                                            </td>
-                                        </tr>
+                                        <div key={order.id} className="admin-mobile-card">
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px' }}>
+                                                <span style={{ fontWeight: '800', color: 'var(--color-primary)' }}>{order.id}</span>
+                                                <span className="status-badge status-processing">{order.status}</span>
+                                            </div>
+                                            <div style={{ marginBottom: '15px' }}>
+                                                <div style={{ fontWeight: '700' }}>{order.shippingDetails?.fullName}</div>
+                                                <div style={{ fontSize: '0.9rem', color: 'var(--color-text-muted)' }}>{order.shippingDetails?.phone}</div>
+                                                <div style={{ fontSize: '0.85rem', opacity: 0.7 }}>{order.shippingDetails?.address}</div>
+                                            </div>
+                                            <div style={{ padding: '10px 0', borderTop: '1px solid var(--color-border)', borderBottom: '1px solid var(--color-border)', marginBottom: '15px', fontSize: '0.9rem' }}>
+                                                <strong>Items:</strong> {order.items}
+                                            </div>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                <span style={{ opacity: 0.6, fontSize: '0.85rem' }}>{order.date}</span>
+                                                <strong style={{ fontSize: '1.2rem' }}>{order.total}</strong>
+                                            </div>
+                                        </div>
                                     ))
                                 )}
-                            </tbody>
-                        </table>
+                            </div>
+                        </>
                     ) : (
-                        <table className="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Subscriber Email</th>
-                                    <th>Subscription Date</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        <>
+                            <div className="admin-table-view">
+                                <table className="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Subscriber Email</th>
+                                            <th>Subscription Date</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {subscribers.length === 0 ? (
+                                            <tr><td colSpan="3" style={{ textAlign: 'center', padding: '40px' }}>No subscribers found yet.</td></tr>
+                                        ) : (
+                                            subscribers.map((sub, idx) => (
+                                                <tr key={sub.email || idx}>
+                                                    <td>
+                                                        <div style={{ fontWeight: '700', fontSize: '1.1rem' }}>{sub.email}</div>
+                                                    </td>
+                                                    <td>
+                                                        {sub.subscribedAt ? new Date(sub.subscribedAt).toLocaleDateString('en-IN', {
+                                                            day: 'numeric',
+                                                            month: 'long',
+                                                            year: 'numeric'
+                                                        }) : 'N/A'}
+                                                    </td>
+                                                    <td>
+                                                        <span className="status-active">● Active</span>
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div className="admin-card-view">
                                 {subscribers.length === 0 ? (
-                                    <tr><td colSpan="3" style={{ textAlign: 'center', padding: '40px' }}>No subscribers found yet.</td></tr>
+                                    <div style={{ textAlign: 'center', padding: '40px' }}>No subscribers found yet.</div>
                                 ) : (
                                     subscribers.map((sub, idx) => (
-                                        <tr key={sub.email || idx}>
-                                            <td>
-                                                <div style={{ fontWeight: '700', fontSize: '1.1rem' }}>{sub.email}</div>
-                                            </td>
-                                            <td>
-                                                {sub.subscribedAt ? new Date(sub.subscribedAt).toLocaleDateString('en-IN', {
-                                                    day: 'numeric',
-                                                    month: 'long',
-                                                    year: 'numeric'
-                                                }) : 'N/A'}
-                                            </td>
-                                            <td>
+                                        <div key={sub.email || idx} className="admin-mobile-card">
+                                            <div style={{ fontWeight: '700', fontSize: '1.1rem', marginBottom: '10px' }}>{sub.email}</div>
+                                            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                                                <span style={{ fontSize: '0.85rem', opacity: 0.6 }}>
+                                                    {sub.subscribedAt ? new Date(sub.subscribedAt).toLocaleDateString('en-IN', {
+                                                        day: 'numeric',
+                                                        month: 'long',
+                                                        year: 'numeric'
+                                                    }) : 'N/A'}
+                                                </span>
                                                 <span className="status-active">● Active</span>
-                                            </td>
-                                        </tr>
+                                            </div>
+                                        </div>
                                     ))
                                 )}
-                            </tbody>
-                        </table>
+                            </div>
+                        </>
                     )}
                 </div>
             </div>
@@ -187,7 +242,7 @@ export default function AdminDashboard() {
                     border-radius: 15px;
                 }
                 .stat-label {
-                    fontSize: 0.85rem;
+                    font-size: 0.85rem;
                     opacity: 0.6;
                     margin-bottom: 5px;
                 }
@@ -213,18 +268,22 @@ export default function AdminDashboard() {
                     opacity: 1;
                     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
                 }
-                .admin-table-container {
+                .admin-content-container {
                     background: white;
                     border-radius: 24px;
                     padding: 30px;
                     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-                    overflow-x: auto;
+                }
+                .admin-table-view {
+                    display: block;
+                }
+                .admin-card-view {
+                    display: none;
                 }
                 .admin-table {
                     width: 100%;
                     border-collapse: collapse;
                     text-align: left;
-                    min-width: 800px;
                 }
                 .admin-table th {
                     padding: 15px;
@@ -251,6 +310,48 @@ export default function AdminDashboard() {
                 .status-active {
                     color: #059669;
                     font-weight: 600;
+                }
+                .admin-mobile-card {
+                    background: var(--color-bg-light);
+                    padding: 20px;
+                    border-radius: 20px;
+                    margin-bottom: 15px;
+                }
+
+                @media (max-width: 992px) {
+                    .admin-table-view {
+                        display: none;
+                    }
+                    .admin-card-view {
+                        display: block;
+                    }
+                    .admin-content-container {
+                        padding: 20px;
+                    }
+                }
+                @media (max-width: 768px) {
+                    .admin-stat-card {
+                        padding: 20px;
+                        gap: 15px;
+                    }
+                    .stat-icon {
+                        width: 50px;
+                        height: 50px;
+                        font-size: 1.5rem;
+                    }
+                    .stat-value {
+                        font-size: 1.2rem;
+                    }
+                }
+                @media (max-width: 480px) {
+                    .section-title {
+                        font-size: 1.5rem;
+                    }
+                    .admin-tab {
+                        padding: 10px 15px;
+                        font-size: 0.8rem;
+                        width: 100%;
+                    }
                 }
             `}</style>
         </main>
