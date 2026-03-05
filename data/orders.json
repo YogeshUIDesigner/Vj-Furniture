@@ -1,0 +1,28 @@
+[
+  {
+    "id": "ORD-26203",
+    "date": "5 Mar 2026, 09:11 pm",
+    "total": "₹3,499",
+    "status": "Processing",
+    "items": "Modern Brass Table Lamp (x1)",
+    "itemsList": [
+      {
+        "name": "Modern Brass Table Lamp",
+        "quantity": 1,
+        "price": 3499,
+        "image": "https://images.unsplash.com/photo-1507473885765-e6ed057ab3fe?w=600&h=600&fit=crop"
+      }
+    ],
+    "shippingDetails": {
+      "fullName": "Yogesh Mahor",
+      "email": "yogeshoneness730@gmail.com",
+      "phone": "+919870765966",
+      "address": "exiliensoft H-211 Sector 63, Noida Utter Pradesh, India",
+      "city": "Noida",
+      "state": "",
+      "pincode": "201301",
+      "paymentMethod": "cod"
+    },
+    "createdAt": "2026-03-05T15:41:17.664Z"
+  }
+]
