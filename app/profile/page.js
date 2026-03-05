@@ -1,10 +1,6 @@
-'use client';
-import { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import { useOrders } from '@/context/OrderContext';
+import { Suspense } from 'react';
 
-export default function ProfilePage() {
+function ProfileContent() {
     const searchParams = useSearchParams();
     const { orders } = useOrders();
     const [activeTab, setActiveTab] = useState('profile');
@@ -193,5 +189,13 @@ export default function ProfilePage() {
                 </div>
             </div>
         </main>
+    );
+}
+
+export default function ProfilePage() {
+    return (
+        <Suspense fallback={<div style={{ padding: '150px', textAlign: 'center' }}>Loading profile...</div>}>
+            <ProfileContent />
+        </Suspense>
     );
 }
